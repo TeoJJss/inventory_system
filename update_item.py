@@ -1,3 +1,7 @@
+"""
+Script to update items
+"""
+
 # Initialization
 role="admin" # Get from user_authentication function
 access_allowed=("admin",) # Only admin can add new user
