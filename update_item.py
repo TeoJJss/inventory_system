@@ -1,6 +1,6 @@
 # Initialization
 role="admin" # Get from user_authentication function
-access=("admin",) # Only admin can add new user
+access_allowed=("admin",) # Only admin can add new user
 code=change=txt=""
 d={
     "1": "Code",
@@ -17,7 +17,7 @@ while True:
     data_ls=[]
     code_ls=[]
     #check if user is admin
-    if role != "admin":
+    if role not in access_allowed:
         print("REJECTED: You have no permission to update items, please login again!")
         break
     else:
