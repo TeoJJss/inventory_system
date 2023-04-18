@@ -4,3 +4,5 @@
 4	test2	yesyesyes	purchaser
 5	Ali	1234A@bc	purchaser
 6	testuser	12345hhh	purchaser
+7	user	passpass	admin
+8	user2	passwwww	admin

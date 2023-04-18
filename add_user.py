@@ -21,7 +21,7 @@ while True:
         # Welcome message
         print("You are now at: ▶ Add New User (Admin only) ◀\nTo add a new user, you need to specify username, password and user type.\nMinimum 8 characters required for password.\nPlease type these data separated by comma(,)\n")
 
-        # Make sure input is in correct format
+        # Repeat asking user to input new user's details until request to exit
         while not user_info:
             #Guide user to input
             print("\nFormat: <username>,<password>,<user_type>\nExample input: Ali,1234A@bc,purchaser\nTo return back to main menu, type \"b\"\nWARNING: username and password are both case-sensitive and space-sensitive!")
@@ -65,12 +65,12 @@ while True:
                     # Ask user if want to add new user or exit
                     print("Type 'y' to add another user, other characters to quit. ")
                     if input("Another user [y] or exit?").lower().strip() =="y":
-                        user_info=""
+                        user_info="" # Set user_info as empty string so it can be repeated instead of quit
                 
                 # If user choose to discard data
                 else:
                     print("DISCARDED")
-                    user_info=""
+                    user_info="" # Set user_info as empty string so it can be repeated instead of quit
 
             # Error handler
             except Exception as e:
