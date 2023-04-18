@@ -1,0 +1,5 @@
+1	ahmad	password	admin
+2	lee	abcd1111	inventory-checker
+3	test1	12345678	inventory-checker
+4	test2	yesyesyes	purchaser
+5	Ali	1234A@bc	purchaser
