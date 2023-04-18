@@ -3,3 +3,4 @@
 3	test1	12345678	inventory-checker
 4	test2	yesyesyes	purchaser
 5	Ali	1234A@bc	purchaser
+6	testuser	12345hhh	purchaser

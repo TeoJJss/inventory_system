@@ -18,7 +18,7 @@ while True:
     code_ls=[]
     #check if user is admin
     if role != "admin":
-        print("REJECTED: You have no permission to add user, please login again!")
+        print("REJECTED: You have no permission to update items, please login again!")
         break
     else:
         print("You are now at: ▶ Update Items (Admin only) ◀\n")
@@ -43,7 +43,7 @@ while True:
 
         try:
             # Display records
-            print("\nAbove are the existing records:\n\ntype 'q' to return back to main menu. ")
+            print("\nAbove are the existing records\n\ntype 'q' to return back to main menu. ")
 
             #Request to input item code
             if not code:
@@ -129,7 +129,7 @@ while True:
                 data_ls[row][column-1]=str(new_value)
                 
                 # Update the changes with the list
-                with open("./inventory.txt", "w") as inventory_file:
+                with open("inventory.txt", "w") as inventory_file:
                     for row in data_ls:
                         if data_ls.index(row) != 0: # After writing each row, break line
                             inventory_file.write("\n")
