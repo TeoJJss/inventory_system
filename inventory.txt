@@ -1,6 +1,6 @@
 10000	Milk 1L	Dairy	Box	10.00	30	6	
 22222	Beef 200g	Freezer	Pack	20.00	3	7	
 21000	Chicken thigh	Freezer	Pieces	10.00	15	5	
-32000	Milk 2L	Fruits	Pieces	2.00	50	30	
+32000	Milk 2L	Fruits	Pieces	2.00	10	30	
 20000	Orange	Fruits	pieces	2.50	50	30	
 43000	Broccoli	Vegetables	pieces	10.00	23	10	

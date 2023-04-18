@@ -12,8 +12,6 @@ d={
     "7": "Minimum (Threshold)"
 }
 
-# Welcome message
-print("You are now at: ▶ Update Items (Admin only) ◀\n")
 # This will be repeated until user requests to exit
 while True:
     data_ls=[]
@@ -28,8 +26,9 @@ while True:
         with open("inventory.txt", "r") as inventory_file:
             # Display records from txt file in a neat format
             print("{:10} {:20} {:15} {:10} {:10} {:10} {:10}".format(*["Code", "Description", "Category", "Unit", "Price", "Quantity", "Minimum (Threshold)"]))
+            print("---"*35)
             for line in inventory_file:
-                print("{:10} {:20} {:15} {:10} {:10} {:10} {:10}".format(*(line.strip().split("\t")))) # Specify field size for each column
+                print("{:10} {:20} {:15} {:10} {:10}\t{:10}\t{:10}".format(*(line.strip().split("\t")))) # Specify field size for each column
             
             # Save each line into a list
             inventory_file.seek(0)
@@ -130,7 +129,7 @@ while True:
                 data_ls[row][column-1]=str(new_value)
                 
                 # Update the changes with the list
-                with open("inventory.txt", "w") as inventory_file:
+                with open("./inventory.txt", "w") as inventory_file:
                     for row in data_ls:
                         if data_ls.index(row) != 0: # After writing each row, break line
                             inventory_file.write("\n")
