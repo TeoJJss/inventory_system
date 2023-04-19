@@ -7,3 +7,5 @@
 7	user	passpass	admin
 8	user2	passwwww	admin
 9	one	abcdfers	admin
+10	ali	absdsdsd	purchaser
+11	alis	acsdsdsd	purchaser

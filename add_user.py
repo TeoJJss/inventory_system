@@ -56,22 +56,22 @@ else:
                 # Open file and append userdata
                 with open("userdata.txt", "a") as credential_file:
                     credential_file.write(f"{row_num+1}\t{username}\t{password}\t{user_type.lower().strip()}\n")
-                    print("Added successfully!")
+                    print("\nAdded successfully!\n\n")
 
                 # Ask user if want to add new user or exit
                 print("Type 'y' to add another user, other characters to quit. ")
-                if input("Another user [y] or exit?").lower().strip() =="y": # If user request to continue adding new user
+                if input("Add another user [y] or exit?").lower().strip() =="y": # If user request to continue adding new user
                     continue
                 else: # If user request to exit
                     break
             
             # If user choose to discard data
             else:
-                print("DISCARDED")
+                print("\nDISCARDED\n")
                 continue # Set user_info as empty string so it can be repeated instead of quit
 
         # Error handler
         except Exception as e:
             user_info="" # user info reset if any error is found
             print("\n\nERROR:",e, "\n")
-    print("\nEXIT add user function\n")   
+print("\nEXIT add user function\n")   
