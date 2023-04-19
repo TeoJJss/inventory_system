@@ -49,7 +49,7 @@ while True:
             # Display records
             print("\nAbove are the existing records\n\ntype 'q' to return back to main menu. ")
 
-            #Request to input item code
+            #Request to input item code only when it's empty
             if not code:
                 code=input("Specify the item's code which you would like to update? ").strip()
 
@@ -62,7 +62,7 @@ while True:
                 code=""
                 raise Exception("The item code is not found! ")
 
-            print(f"\nYou're now updating {code}")
+            print(f"\nYou're now updating: {code}")
             # Request user to choose what to update for the item code's row
             print("""\nWhat do you wish to update?
                 Type 1  Item code (MUST be 5 digits)
@@ -81,7 +81,7 @@ while True:
             # Check if user want to quit or go back to main menu
             if not change.isnumeric():
                 if change=="b":
-                    code=""
+                    code="" # Reset item code to empty
                     continue
                 elif change=="q":
                     break
@@ -140,13 +140,15 @@ while True:
                         for column in row: # Use TAB to separate columns
                             inventory_file.write(str(column)+"\t")
                 
-                if input(f"Type 'y' to update other details for {code}, or any other characters to reset: ").strip().lower()=='y':
+                # Ask if user want to continue updating the same item code or new item code
+                if input(f"Type 'y' to update other details for {code},\nor any other characters to reset: ").strip().lower()=='y':
                     continue
                 else:
-                    code=""
+                    code="" # Reset item code to empty
                     continue
 
         # Error handler
         except Exception as e:
-            print("\n\nERROR:",e)
+            print("\n\nERROR:",e, "\n") # Display error message
             continue
+print("EXIT update item function")
