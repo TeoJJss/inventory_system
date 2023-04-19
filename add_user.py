@@ -74,4 +74,4 @@ else:
         except Exception as e:
             user_info="" # user info reset if any error is found
             print("\n\nERROR:",e, "\n")
-    print("EXIT add user function\n")   
+    print("\nEXIT add user function\n")   

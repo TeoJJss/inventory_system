@@ -38,12 +38,12 @@ while True:
             inventory_file.seek(0)
             data_ls=inventory_file.readlines()
 
-            # Convert to 2D list
-            for ind, data in enumerate(data_ls):
-                data_ls[ind]=data.rstrip().split("\t")
-            # Save item code into a new list
-            for line in data_ls:
-                code_ls.append(line[0])
+        # Convert to 2D list
+        for ind, data in enumerate(data_ls):
+            data_ls[ind]=data.rstrip().split("\t")
+        # Save item code into a new list
+        for line in data_ls:
+            code_ls.append(line[0])
 
         try:
             # Display records
@@ -62,26 +62,27 @@ while True:
                 code=""
                 raise Exception("The item code is not found! ")
 
-            print(f"\nYou're now updating: {code}")
             # Request user to choose what to update for the item code's row
             print("""\nWhat do you wish to update?
-                Type 1  Item code (MUST be 5 digits)
-                Type 2  Description
-                Type 3  Category
-                Type 4  Unit
-                Type 5  Price
-                Type 6  Quantity
-                Type 7  Minimum (Threshold)
+            Type 1  Item code (MUST be 5 digits)
+            Type 2  Description
+            Type 3  Category
+            Type 4  Unit
+            Type 5  Price
+            Type 6  Quantity
+            Type 7  Minimum (Threshold)
 
-                Type b to go back
-                Type q to go back main menu\n\n
-                """)
+            Type b to go back item list
+            Type q to go back main menu\n
+            """)
+            print(f"\nYou're now updating: {code}")
             change=input("Your option: ").strip()
 
             # Check if user want to quit or go back to main menu
             if not change.isnumeric():
                 if change=="b":
                     code="" # Reset item code to empty
+                    print("\nBACK to item list\n")
                     continue
                 elif change=="q":
                     break
@@ -97,7 +98,7 @@ while True:
             column=int(change)
 
             print(f"\n\nYou're now changing the item code: {code}, for its {d[change]}")
-            print("[Enter 'b' to go back]")
+            print("[Enter 'b' to go back item list]")
             new_value=input("New value: ").strip()
             
             if new_value != "b":
@@ -146,9 +147,11 @@ while True:
                 else:
                     code="" # Reset item code to empty
                     continue
+            else:
+                print("\nBACK to item list\n")
 
         # Error handler
         except Exception as e:
             print("\n\nERROR:",e, "\n") # Display error message
             continue
-print("EXIT update item function")
+print("\nEXIT update item function")
