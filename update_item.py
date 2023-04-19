@@ -141,7 +141,7 @@ while True:
                             inventory_file.write(str(column)+"\t")
                 
                 # Ask if user want to continue updating the same item code or new item code
-                if input(f"Type 'y' to update other details for {code},\nor any other characters to reset: ").strip().lower()=='y':
+                if input(f"Type 'y' to continue updating other details for {code},\nor any other characters to switch: ").strip().lower()=='y':
                     continue
                 else:
                     code="" # Reset item code to empty
