@@ -35,6 +35,10 @@ else:
             if len(user_info) !=3:
                 raise Exception("Please input username, password and user type! ")
             
+            # If username is empty
+            if len(user_info[0].strip())<1:
+                raise Exception("Username cannot be empty! ")
+            
             # If password length not exceed 8
             if len(user_info[1])<8 :
                 raise Exception("Password length must more than or equal to 8!")
@@ -46,7 +50,7 @@ else:
             # After data validation pass
             # Confirm with user before adding the data into txt
             username, password, user_type=user_info
-            print(f"\n\nNew user info\nusername: {username}\t|\tpassword: {password}\t|\tuser_type: {user_type}")
+            print(f"\n\nNew user info\nusername: {username.strip()}\t|\tpassword: {password}\t|\tuser_type: {user_type.lower().strip()}")
             print("\nType 'y' to confirm, or any characters to discard")
 
             # If user confirmed, add data
@@ -55,7 +59,7 @@ else:
 
                 # Open file and append userdata
                 with open("userdata.txt", "a") as credential_file:
-                    credential_file.write(f"{row_num+1}\t{username}\t{password}\t{user_type.lower().strip()}\n")
+                    credential_file.write(f"{row_num+1}\t{username.strip()}\t{password}\t{user_type.lower().strip()}\n")
                     print("\nAdded successfully!\n\n")
 
                 # Ask user if want to add new user or exit

@@ -46,7 +46,6 @@ while True:
             code_ls.append(line[0])
 
         try:
-            # Display records
             print("\nAbove are the existing records\n\ntype 'q' to return back to main menu. ")
 
             #Request to input item code only when it's empty
