@@ -57,14 +57,13 @@ def update_item(role):
 
                 #Request to input item code only when it's empty
                 if not code:
-                    code=input("Specify the item's code which you would like to update? ").strip()
+                    code=input("Specify the item's code which you would like to update: ").strip()
 
                 # If user choose to quit
                 if code=="q":
                     break
                 # Check if the input item code exist
                 if code not in code_ls:
-                    print(code)
                     code=""
                     raise Exception("The item code is not found! ")
 
@@ -81,7 +80,7 @@ def update_item(role):
                 Type b to go back item list
                 Type q to go back main menu\n
                 """)
-                print(f"\nYou're now updating: {code}")
+                print(f"\nYou're now updating - {code}")
                 change=input("Your option: ").strip()
 
                 # Check if user want to quit or go back to main menu
