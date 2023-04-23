@@ -51,21 +51,29 @@ def add_user(role): # role get from user_auth
                 # If user type is invalid
                 if user_info[2].lower().strip() not in user_type_allowed:
                     raise Exception("Invalid user type!")
-                
+
                 # After data validation pass
                 # Confirm with user before adding the data into txt
                 username, password, user_type=user_info
                 print(f"\n\nNew user info\nusername: {username.strip()}\t|\tpassword: {password}\t|\tuser_type: {user_type.lower().strip()}")
-                print("\nType 'y' to confirm, or any characters to discard")
+                print("\nType 'y' to confirm, or any other characters to discard")
 
                 # If user confirmed, add data
                 if input("Confirm? [y]: ").lower().strip() == "y":
                     row_num=sum(1 for x in open(file_dir, "r")) # Get row number
 
                     # Open file and append userdata
-                    with open(file_dir, "a") as credential_file:
-                        credential_file.write(f"{row_num+1}\t{username.strip()}\t{password}\t{user_type.lower().strip()}\n")
-                        print("\nAdded successfully!\n\n")
+                    with open(file_dir, "a+") as credential_file:
+                        # Reject if the user already exists
+                        credential_file.seek(0)
+                        for line in credential_file.readlines():
+                            if f"{username.strip()}\t{password}" in line:
+                                raise Exception("User already exists!")
+                        
+                        # If user not exist
+                        else:
+                            credential_file.write(f"{row_num+1}\t{username.strip()}\t{password}\t{user_type.lower().strip()}\n")
+                            print("\nAdded successfully!\n\n")
 
                     # Ask user if want to add new user or exit
                     print("Type 'y' to add another user, other characters to quit. ")
@@ -77,7 +85,7 @@ def add_user(role): # role get from user_auth
                 # If user choose to discard data
                 else:
                     print("\nDISCARDED\n")
-                    continue # Set user_info as empty string so it can be repeated instead of quit
+                    continue 
 
             # Error handler
             except Exception as e:
