@@ -66,9 +66,8 @@ def add_user(role): # role get from user_auth
                     with open(file_dir, "a+") as credential_file:
                         # Reject if the user already exists
                         credential_file.seek(0)
-                        for line in credential_file.readlines():
-                            if username.strip() in line:
-                                raise Exception("User already exists!")
+                        if any([line for line in credential_file.readlines() if username in line]):
+                            raise Exception("User already exists!")
                         
                         # If user not exist
                         else:
