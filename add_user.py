@@ -11,7 +11,8 @@ def add_user(role): # role get from user_auth
     file_dir="userdata.txt"
     user_info=""
     access_allowed=("admin",) # Only admin can add new user
-
+    # Welcome message
+    print("You are now at: ▶ Add New User (Admin only) ◀\nTo add a new user, you need to specify username, password and user type. Please type these data separated by comma(,)\nMinimum 8 characters required for password.\nWARNING: username and password are both case-sensitive and space-sensitive!\n\n")
     # Validate user type
     if role not in access_allowed:
         print("REJECTED: You have no permission to add user, please login again!")
@@ -22,8 +23,6 @@ def add_user(role): # role get from user_auth
 
         # Repeat asking user to input new user's details until request to exit
         while True:
-            # Welcome message
-            print("You are now at: ▶ Add New User (Admin only) ◀\nTo add a new user, you need to specify username, password and user type. Please type these data separated by comma(,)\nMinimum 8 characters required for password.\nWARNING: username and password are both case-sensitive and space-sensitive!\n\n")
             #Guide user to input
             print("\nFormat: <username>,<password>,<user_type>\nExample input: Ali,1234A@bc,purchaser\nTo return back to main menu, type \"q\"\n")
 
@@ -77,6 +76,7 @@ def add_user(role): # role get from user_auth
                     # Ask user if want to add new user or exit
                     print("Type 'y' to add another user, other characters to quit. ")
                     if input("Add another user [y] or exit?").lower().strip() =="y": # If user request to continue adding new user
+                        print("\n\nYou are now at: ▶ Add New User (Admin only) ◀")
                         continue
                     else: # If user request to exit
                         break
@@ -90,6 +90,8 @@ def add_user(role): # role get from user_auth
             except Exception as e:
                 user_info="" # user info reset if any error is found
                 print("\n\nERROR:",e, "\n")
+    
+    # Code below will be run if user choose to exit and the loop breaks
     print("\nEXIT add user function\n")   
 
 add_user(role="admin")
