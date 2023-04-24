@@ -15,7 +15,7 @@ def add_user(role): # role get from user_auth
     print("You are now at: ▶ Add New User (Admin only) ◀\nTo add a new user, you need to specify username, password and user type. Please type these data separated by comma(,)\nMinimum 8 characters required for password.\nWARNING: username and password are both case-sensitive and space-sensitive!\n\n")
     # Validate user type
     if role not in access_allowed:
-        print("REJECTED: You have no permission to add user, please login again!")
+        print("REJECTED: You have no permission to access this, please login again!")
 
     # If user is admin
     else:
@@ -65,7 +65,7 @@ def add_user(role): # role get from user_auth
                     with open(file_dir, "a+") as credential_file:
                         # Reject if the user already exists
                         credential_file.seek(0)
-                        if any([line for line in credential_file.readlines() if username in line]):
+                        if any([line for line in credential_file.readlines() if username.strip() == line.split("\t")[1].strip()]):
                             raise Exception("User already exists!")
                         
                         # If user not exist

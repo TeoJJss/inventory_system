@@ -29,7 +29,7 @@ def update_item(role):
         code_ls=[]
         #check if user is admin
         if role not in access_allowed:
-            print("REJECTED: You have no permission to update items, please login again!")
+            print("REJECTED: You have no permission to access this, please login again!")
             break
         else:
             print("You are now at: ▶ Update Items (Admin only) ◀\n")
@@ -145,6 +145,7 @@ def update_item(role):
                                 inventory_file.write("\n")
                             for column in row: # Use TAB to separate columns
                                 inventory_file.write(str(column)+"\t")
+                        print("\nUPDATED SUCESSFULLY\n")
                     
                     # Ask if user want to continue updating the same item code or new item code
                     if input(f"Type 'y' to continue updating other details for {code},\nor any other characters to switch: ").strip().lower()=='y':
