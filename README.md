@@ -1,5 +1,5 @@
 <b>Workflow</b>  
-<img src="src\PWP_workflow.png" width=600></img>
+<img src="src/PWP_workflow.png" width=600></img>
 
 ---
 
