@@ -1,3 +1,8 @@
+<b>Workflow</b>  
+<img src="src\PWP_workflow.png" width=600></img>
+
+---
+
 <b>Guide to read txt files</b>  
 "column" refers to vertical, "row" refers to horizontal.   
 

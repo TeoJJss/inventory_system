@@ -22,8 +22,9 @@ def update_item(role):
         "6": "Quantity",
         "7": "Minimum (Threshold)"
     }
+    print("\nYou are now at: ▶ Update Items (Admin only) ◀\n")
 
-    # This will be repeated until user requests to exit
+    # Below will be repeated until user requests to exit
     while True:
         data_ls=[]
         code_ls=[]
@@ -32,7 +33,6 @@ def update_item(role):
             print("REJECTED: You have no permission to access this, please login again!")
             break
         else:
-            print("You are now at: ▶ Update Items (Admin only) ◀\n")
             # Get all records out from txt file
             with open(file_dir, "r") as inventory_file:
                 # Display records from txt file in a neat format
@@ -149,8 +149,10 @@ def update_item(role):
                     
                     # Ask if user want to continue updating the same item code or new item code
                     if input(f"Type 'y' to continue updating other details for {code},\nor any other characters to switch: ").strip().lower()=='y':
+                        print("\nYou are now at: ▶ Update Items (Admin only) ◀\n")
                         continue
                     else:
+                        print("\nYou are now at: ▶ Update Items (Admin only) ◀\n")
                         code="" # Reset item code to empty
                         continue
                 else:

@@ -6,6 +6,7 @@ def add_user(role): # role get from user_auth
     # Assume user's password must be minimum 8 in length
     # Assume there are only 3 roles that will use the system, which are "admin", "inventory-checker" and "purchaser" 
     # Assume that "userdata.txt" is placed in the same directory as this file
+    # Assume that username should be unique
 
     # Initialization
     file_dir="userdata.txt"
@@ -65,7 +66,7 @@ def add_user(role): # role get from user_auth
                     with open(file_dir, "a+") as credential_file:
                         # Reject if the user already exists
                         credential_file.seek(0)
-                        if any([line for line in credential_file.readlines() if username.strip() == line.split("\t")[1].strip()]):
+                        if any([line for line in credential_file.readlines() if username.strip() == line.split("\t", 2)[1].strip()]):
                             raise Exception("User already exists!")
                         
                         # If user not exist
