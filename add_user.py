@@ -12,6 +12,7 @@ def add_user(role): # role get from user_auth
     file_dir="userdata.txt"
     user_info=""
     access_allowed=("admin",) # Only admin can add new user
+
     # Welcome message
     print("You are now at: ▶ Add New User (Admin only) ◀\nTo add a new user, you need to specify username, password and user type. Please type these data separated by comma(,)\nMinimum 8 characters required for password.\nWARNING: username and password are both case-sensitive and space-sensitive!\n\n")
     # Validate user type
@@ -24,6 +25,7 @@ def add_user(role): # role get from user_auth
 
         # Repeat asking user to input new user's details until request to exit
         while True:
+            errors=[]
             #Guide user to input
             print("\nFormat: <username>,<password>,<user_type>\nExample input: Ali,1234A@bc,purchaser\nTo return back to main menu, type \"q\"\n")
 
@@ -38,19 +40,22 @@ def add_user(role): # role get from user_auth
 
                 # If not 2 commas in the input
                 if len(user_info) !=3:
-                    raise Exception("Please input username, password and user type! ")
+                    raise Exception("Please input username, password and user type!")
                 
                 # If username is empty
                 if len(user_info[0].strip())<1:
-                    raise Exception("Username cannot be empty! ")
+                    errors.append("Username cannot be empty!")
                 
                 # If password length not exceed 8
                 if len(user_info[1])<8 :
-                    raise Exception("Password length must more than or equal to 8!")
+                    errors.append("Password length must more than or equal to 8!")
                 
                 # If user type is invalid
                 if user_info[2].lower().strip() not in user_type_allowed:
-                    raise Exception("Invalid user type!")
+                    errors.append("Invalid user type!")
+
+                if errors:
+                    raise Exception(errors)
 
                 # After data validation pass
                 # Confirm with user before adding the data into txt
