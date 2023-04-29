@@ -1,9 +1,9 @@
 <b>Workflow</b>  
-<img src="src\PWP_workflow.png" width=600></img>
-
----
-
-<b>Guide to read txt files</b>  
+![workflow](src/PWP_workflow.png =300x)  
+  
+---  
+  
+<b>Guide to read txt files using Python</b>  
 "column" refers to vertical, "row" refers to horizontal.   
 
 `inventory.txt`  
