@@ -2,7 +2,7 @@
 Script to update items
 """
 
-def update_item(role):
+def update_item(role: str):
     # Assume item code's format is 5-digit numbers and unique
     # Assume that "inventory.txt" is placed in the same directory as this file
     # Assume that price must be in 2 decimal format
@@ -14,7 +14,7 @@ def update_item(role):
     access_allowed=("admin",) # Only admin can add new user
     code=change=""
     d={
-        "1": "Code",
+        "1": "Item code (MUST be 5 digits)",
         "2": "Description",
         "3": "Category",
         "4": "Unit",
@@ -22,6 +22,7 @@ def update_item(role):
         "6": "Quantity",
         "7": "Minimum (Threshold)"
     }
+    
     print("\nYou are now at: ▶ Update Items (Admin only) ◀\n")
 
     # Below will be repeated until user requests to exit
@@ -68,19 +69,14 @@ def update_item(role):
                     raise Exception("The item code is not found! ")
 
                 # Request user to choose what to update for the item code's row
-                print("""\nWhat do you wish to update?
-                Type 1  Item code (MUST be 5 digits)
-                Type 2  Description
-                Type 3  Category
-                Type 4  Unit
-                Type 5  Price
-                Type 6  Quantity
-                Type 7  Minimum (Threshold)
-
+                print("\nWhat do you wish to update?")
+                for key, col in d.items():
+                    print(f"\t\tType {key} for {col}")
+                print("""
                 Type b to go back item list
                 Type q to go back main menu\n
                 """)
-                print(f"\nYou're now updating - {code}")
+                print(f"You're now updating - {code}")
                 change=input("Your option: ").strip()
 
                 # Check if user want to quit or go back to main menu
