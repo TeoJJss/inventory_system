@@ -2,7 +2,7 @@
 Script for ADD USER function
 """
 
-def add_user(role): # role get from user_auth
+def add_user(role: str): # role get from user_auth
     # Assume user's password must be minimum 8 in length
     # Assume there are only 3 roles that will use the system, which are "admin", "inventory-checker" and "purchaser" 
     # Assume that "userdata.txt" is placed in the same directory as this file
