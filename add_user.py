@@ -2,7 +2,7 @@
 Script for ADD USER function
 """
 
-def add_user(role: str): # role get from user_auth
+def add_user(role: str) -> None: 
     # Assume user's password must be minimum 8 in length
     # Assume there are only 3 roles that will use the system, which are "admin", "inventory-checker" and "purchaser" 
     # Assume that "userdata.txt" is placed in the same directory as this file
@@ -13,14 +13,14 @@ def add_user(role: str): # role get from user_auth
     user_info=""
     access_allowed=("admin",) # Only admin can add new user
 
-    # Welcome message
-    print("You are now at: ▶ Add New User (Admin only) ◀\nTo add a new user, you need to specify username, password and user type. Please type these data separated by comma(,)\nMinimum 8 characters required for password.\nWARNING: username and password are both case-sensitive and space-sensitive!\n\n")
     # Validate user type
     if role not in access_allowed:
         print("REJECTED: You have no permission to access this, please login again!")
 
     # If user is admin
     else:
+        # Welcome message
+        print("You are now at: ▶ Add New User (Admin only) ◀\nTo add a new user, you need to specify username, password and user type. Please type these data separated by comma(,)\nMinimum 8 characters required for password.\nWARNING: username and password are both case-sensitive and space-sensitive!\n")
         user_type_allowed=("admin", "inventory-checker", "purchaser") # 3 types of user allowed to input
 
         # Repeat asking user to input new user's details until request to exit

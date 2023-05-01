@@ -2,7 +2,7 @@
 Script to update items
 """
 
-def update_item(role: str):
+def update_item(role: str) -> None:
     # Assume item code's format is 5-digit numbers and unique
     # Assume that "inventory.txt" is placed in the same directory as this file
     # Assume that price must be in 2 decimal format
