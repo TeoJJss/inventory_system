@@ -1,7 +1,7 @@
 #Ng Jan Hwan
 #TP068352
 
-def delete_item(role):
+def delete_item(role:str)->None:
     # Assume item code's format is 5-digit numbers and unique
     # Assume "inventory.txt" is placed in the same directory as code file
     # Assume that only item code can be accepted as input

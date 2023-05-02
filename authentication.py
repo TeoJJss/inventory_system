@@ -1,7 +1,7 @@
 #Ng Jan Hwan
 #TP068352
 
-def user_authentication():
+def user_authentication() -> str:
     # Assume "userdata.txt" is placed in the same directory as code file
     # Assume that credentials in "userdata.txt" are correct
 
@@ -27,6 +27,5 @@ def user_authentication():
                 return role
         else:
             print("Authentication failed! Please login again.")
-            break
 
 role=user_authentication()
