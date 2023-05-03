@@ -24,7 +24,10 @@ def insert_item(role:str)->None:
             codelist=[code[:5] for code in datalist]
             print('\nPlease enter all the information based on the format below\nFORMAT: <Code>,<Description>,<Category>,<Unit>,<Price>,<Quantity>,<Minimum>\n')
             product_info=input('Please enter all the information of this product: ').split(",")
-        
+            
+            if len(product_info)==1 and "q" in product_info: # If user choose to exit
+                break
+            
             # Check if 7 details in the input
             if len(product_info) !=7:
                 raise Exception ("Not enough data! Please enter according to format.")
