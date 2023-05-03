@@ -80,7 +80,7 @@ def update_item(role: str) -> None:
                 change=input("Your option: ").strip()
 
                 # Check if user want to quit or go back to main menu
-                if not change.isdigit():
+                if not change.isdecimal():
                     if change=="b":
                         code="" # Reset item code to empty
                         print("\nBACK to item list\n")
@@ -107,7 +107,7 @@ def update_item(role: str) -> None:
                     if change=="1": # If request to change item code
                         if new_value in code_ls: # Code must be unique
                             raise Exception("Item code must be unique!\nThe new Code is either the same with the previous, or conflicts with other items' code.\n")
-                        elif len(new_value) != 5 or not new_value.isdigit(): # Code must contain 5 digits
+                        elif len(new_value) != 5 or not new_value.isdecimal(): # Code must contain 5 digits
                             raise Exception("Item code must be 5 digits!\n")
                         code=new_value
                     elif change in ["2", "3", "4"]: # If request to change description/category/unit
