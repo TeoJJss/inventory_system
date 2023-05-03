@@ -39,13 +39,13 @@ def insert_item(role:str)->None:
                         if product_info[0] in line[:5] or product_info[0] in codelist: # Check both file and datalist if the item code exists
                             raise Exception ("The item code must be unique")
             
-            if len(product_info[1].strip()) ==0: # Check description if empty
+            if not product_info[1].strip(): # Check description if empty
                 raise Exception ("Description is empty, please enter the description for this product.")
             
-            if len(product_info[2].strip()) ==0: # Check category if empty
+            if not product_info[2].strip(): # Check category if empty
                 raise Exception ("Cateogry is empty, please enter the category for this product")
             
-            if len(product_info[3].strip()) ==0: # Check Unit if empty
+            if not product_info[3].strip(): # Check Unit if empty
                 raise Exception ("Unit is empty, please enter the Unit of this product.")
             
             # Try convert Price to 2 decimal, or throw error
