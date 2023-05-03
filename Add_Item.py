@@ -30,7 +30,7 @@ def insert_item(role:str)->None:
                 raise Exception ("Not enough data! Please enter according to format.")
 
             # Check if item code is 5 digit number
-            if not product_info[0].strip().isnumeric() or not len(product_info[0].strip())==5:
+            if not product_info[0].strip().isdigit() or not len(product_info[0].strip())==5:
                 raise Exception ("Please enter a 5 digit number for item code.")
             else:
                 # Check if item code is unique
@@ -55,11 +55,11 @@ def insert_item(role:str)->None:
                 raise Exception ("Price must be number.")
                 
             #Check if quanity is positive integer
-            if not product_info[5].strip().isnumeric():
+            if not product_info[5].strip().isdigit():
                 raise Exception ("Quantity must be positive integer.")
             
             #Check if minimum is positive integer
-            if not product_info[6].strip().isnumeric():
+            if not product_info[6].strip().isdigit():
                 raise Exception ("Minimum must be positive integer.")
 
             # Save temporarily in a list
