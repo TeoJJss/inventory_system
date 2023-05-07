@@ -1,4 +1,4 @@
-def stock_taking(role):
+def stock_taking(role:str)->None:
     # Assume item code's format is 5-digit numbers and unique
     # Assume that "inventory.txt" is placed in the same directory as this file
     # Assume only item code can be accepted as input 
@@ -25,7 +25,13 @@ def stock_taking(role):
             for ind, data in enumerate(data_ls):
                 data_ls[ind]=data.rstrip().split("\t")
 
-            print("To check the stock, first you need to enter item code.")
+            # Display existing inventory
+            print("Below are the existing inventory:")
+            print("{:10} {:20}".format(*["Code", "Description"]))
+            for row in data_ls:
+                print("{:10} {:20}".format(*[row[0], row[1]]))
+
+            print("\nTo check the stock, first you need to enter an item code.")
             print("Type 'q' to go back to main menu.")
 
             ItemCode=input("\nPlease enter the item code: ") #input 5 digit item code
@@ -40,7 +46,7 @@ def stock_taking(role):
                     print(f"Quantity for item code {ItemCode} is {data_ls[row][5]}") #prints the specific quantity for the item code that 
                     
                     #Ask user if quantity needs to be changed
-                    QuantityChange = input("Type y to change the quantity: ")
+                    QuantityChange = input("\nType 'y' to change the quantity: ")
                     if QuantityChange == "y": #check if input is 'y' to change quantity
                         NewQuantity = input(f"Please enter new quantity for item code {ItemCode}: ") 
 
@@ -54,9 +60,10 @@ def stock_taking(role):
                         # Updates the new quantity to the specific item code in the txt file
                         with open(file_dir, "w") as inventory_file:
                             inventory_file.writelines(updated_data_ls) 
-                        print(f"Quantity for item code {ItemCode} has been updated to {NewQuantity}")
+                        print(f"\nSUCCESS: Quantity for item code {ItemCode} has been updated to {NewQuantity}\n")
                         break #returns to main menu after made changes to quantity
                     else:
+                        print("No change")
                         break #returns to main menu
             else:
                 raise Exception("Item code not exists") 
