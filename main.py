@@ -3,7 +3,7 @@
 # Main menu
 def main() -> None: 
     role=""
-
+    # Access control
     option_ls={
             "admin": ["insert_item", "update_item", "delete_item", "stock_taking", 
                       "view_replenish_list", "stock_replenishment", "search_item", "add_user"],
@@ -13,35 +13,43 @@ def main() -> None:
     # Welcome message
     print("\nWelcome to ▶ GROCERY STORE INVENTORY SYSTEM ◀\n")
     while True:
+        # Authentication
         if not role:
             role=user_authentication()
         try:
+            # Display list options
             print("\nYou are now at: ▶ Main Menu ◀\n")
             if role in option_ls.keys():
                 for ind in range(len(option_ls[role])):
                     option=option_ls[role][ind].split("(")[0].replace("_", " ").title()
                     print(f"Type {ind+1} to {option}")
+            # Invalid role
             else:
                 raise Exception("Invalid role!")
 
-            print("\nType q to exit the system\nType l to logout")
+            # Display logout and exit options
+            print("\nType e to exit the system\nType l to logout")
             inp=input("\nPlease enter your option: ")
 
-            if inp.strip()=="q":
+            # Exit
+            if inp.strip()=="e":
                 print("\nEXIT GROCERY STORE INVENTORY SYSTEM")
                 exit()
+            # Logout
             if inp.strip()=="l":
                 role=""
                 print("\nLog Out")
                 continue
+            # Execute option's function
             if inp.strip().isdecimal() and 0<int(inp)<=len(option_ls[role]):
                 eval(option_ls[role][int(inp)-1]+"(role)")
+            # Error
             else:
                 raise Exception("Invalid option!")
-
+            
+        # Display error
         except Exception as e:
             print("ERROR:", e)
-
 
 """"""
 # Ng Jan Hwan
@@ -54,7 +62,7 @@ def user_authentication() -> str:
     # Initialize
     filename="userdata.txt"
     credentials=username=password=""
-    print("LOGIN AUTHENTICATION\n")
+    print("LOGIN AUTHENTICATION\nPlease login using your username and password.")
     while True:
         # Opening file and taking credentials from file
         with open(filename, 'r') as file:
@@ -250,7 +258,7 @@ def add_user(role:str) -> None:
     access_allowed=("admin",) # Only admin can add new user
 
     # Welcome message
-    print("You are now at: ▶ Add New User (Admin only) ◀\nTo add a new user, you need to specify username, password and user type. Please type these data separated by comma(,)\nMinimum 8 characters required for password.\nWARNING: username and password are both case-sensitive and space-sensitive!\n\n")
+    print("\nYou are now at: ▶ Add New User (Admin only) ◀\nTo add a new user, you need to specify username, password and user type. Please type these data separated by comma(,)\nMinimum 8 characters required for password.\nWARNING: username and password are both case-sensitive and space-sensitive!\n")
     # Validate user type
     if role not in access_allowed:
         print("REJECTED: You have no permission to access this, please login again!")
@@ -263,7 +271,7 @@ def add_user(role:str) -> None:
         while True:
             errors=[]
             #Guide user to input
-            print("\nFormat: <username>,<password>,<user_type>\nExample input: Ali,1234A@bc,purchaser\nTo return back to main menu, type \"q\"\n")
+            print("Format: <username>,<password>,<user_type>\nExample input: Ali,1234A@bc,purchaser\nTo return back to main menu, type \"q\"\n")
 
             # Get new user's info 
             user_info=(input("Please enter new user's info: ").rstrip()).split(",")
@@ -300,7 +308,7 @@ def add_user(role:str) -> None:
                 print("\nType 'y' to confirm, or any other characters to discard")
 
                 # If user confirmed, add data
-                if input("Confirm? : ").lower().strip() == "y":
+                if input("Confirm? (y): ").lower().strip() == "y":
                     row_num=sum(1 for x in open(file_dir, "r")) # Get row number
 
                     # Open file and append userdata
@@ -317,7 +325,7 @@ def add_user(role:str) -> None:
 
                     # Ask user if want to add new user or exit
                     print("Type 'y' to add another user, other characters to quit. ")
-                    if input("Add another user  or exit?").lower().strip() =="y": # If user request to continue adding new user
+                    if input("Add another user or exit?(y)").lower().strip() =="y": # If user request to continue adding new user
                         print("\n\nYou are now at: ▶ Add New User (Admin only) ◀")
                         continue
                     else: # If user request to exit
@@ -339,7 +347,7 @@ def add_user(role:str) -> None:
 # Lim Heng Yang
 # TP067926
 # Insert item 
-def insert_item(role:str)->None:
+def insert_item(role:str) -> None:
     # Assume item code's format is 5-digit number and unique
     # Assume that "inventory.txt" is placed in the same directory as this file
     # Assume that price must be in 2 decimal format
@@ -371,7 +379,7 @@ def insert_item(role:str)->None:
 
             # Check if 7 details in the input
             if len(product_info) !=7:
-                raise Exception ("Not enough data! Please enter according to format.")
+                raise Exception ("Invalid input format! Please enter according to format.")
 
             # Check if item code is 5 digit number
             if not product_info[0].strip().isdecimal() or not len(product_info[0].strip())==5:
@@ -474,7 +482,7 @@ def delete_item(role:str) -> None:
                     raise Exception("This item is not found. ")
                 
                 # Confirmation for deletion and deletion process
-                if input(f"\nType 'y' to confirm, or any other characters to discard\nDelete {code}? : ").lower().strip() == "y":
+                if input(f"\nType 'y' to confirm, or any other characters to discard\nDelete {code}?(y): ").lower().strip() == "y":
                     new_rows = []
                     with open(file_dir, "w") as inventory_file:
                         for row in data_ls:
@@ -488,7 +496,7 @@ def delete_item(role:str) -> None:
                     print("\nItem with code {} has been successfully deleted.\n".format(code))
                     code = ""
                     print("Type 'y' to delete another item, other characters to quit. ")
-                    if input("Delete another item  or exit? ").lower().strip() =="y": 
+                    if input("Delete another item (y) or exit? ").lower().strip() =="y": 
                         print("\n\nYou are now at: ▶ Delete Item (Admin only) ◀")
                         continue
                     else: 
@@ -506,7 +514,7 @@ def delete_item(role:str) -> None:
 # Nathaniel Chia Yun Bing
 # TP068885
 # Stock Taking
-def stock_taking(role:str)->None:
+def stock_taking(role:str) -> None:
     # Assume item code's format is 5-digit numbers and unique
     # Assume that "inventory.txt" is placed in the same directory as this file
     # Assume only item code can be accepted as input 
