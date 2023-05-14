@@ -1,7 +1,10 @@
+from datetime import datetime
+
 # Louis Ng Yu Hern
 # TP068493
 # Main menu
 def main() -> None: 
+    # Assume that the "End of business day" is after 8pm, Mon-Sun
     role=""
     # Access control
     option_ls={
@@ -16,6 +19,19 @@ def main() -> None:
         # Authentication
         if not role:
             role=user_authentication()
+
+        # If user is inventory checker and the time is end of business day
+        if role=="inventory-checker" and int(datetime.now().strftime("%H"))>=20:
+            print("You are inventory checker and now is the end of business day")
+            print("ALERT: Please perform stock-taking")
+            stock_taking(role)
+
+        # If user is purchaser and the time is end of business day
+        if role=="purchaser" and int(datetime.now().strftime("%H"))>=20:
+            print("You are purchaser and now is the end of business day")
+            print("ALERT: Please view replenish list")
+            pass # waiting view replenish list function
+
         try:
             # Display list options
             print("\nYou are now at: ▶ Main Menu ◀\n")
@@ -28,7 +44,8 @@ def main() -> None:
                 raise Exception("Invalid role!")
 
             # Display logout and exit options
-            print("\nType e to exit the system\nType l to logout")
+            print("\nType 'e' to exit the system\nType 'l' to logout")
+            # User input
             inp=input("\nPlease enter your option: ")
 
             # Exit
@@ -63,6 +80,7 @@ def user_authentication() -> str:
     filename="userdata.txt"
     credentials=username=password=""
     print("LOGIN AUTHENTICATION\nPlease login using your username and password.")
+    print("WARNING: username and password are case-sensitive")
     while True:
         # Opening file and taking credentials from file
         with open(filename, 'r') as file:
@@ -80,7 +98,7 @@ def user_authentication() -> str:
                 print("Authentication successful. User is a(n)", role)
                 return role
         else:
-            print("Authentication failed! Please login again.")
+            print("Authentication failed! Incorrect password or username, please login again.")
 
 # Teo Jun Jia
 # TP067775
@@ -369,7 +387,8 @@ def insert_item(role:str) -> None:
             
         try:
             # Collect the item codes into a list
-            codelist=[code[:5] for code in datalist]
+            if datalist:
+                codelist=[code[:5] for code in datalist]
             print('\nPlease enter all the information based on the format below\nFORMAT: <Code>,<Description>,<Category>,<Unit>,<Price>,<Quantity>,<Minimum>\n')
             print("Type 'q' to return back to main menu")
             product_info=input('Please enter all the information of this product: ').split(",")
