@@ -5,6 +5,7 @@ from datetime import datetime
 # Main menu
 def main() -> None: 
     # Assume that the "End of business day" is after 8pm, Mon-Sun
+    
     role=""
     # Access control
     option_ls={
@@ -22,15 +23,15 @@ def main() -> None:
 
         # If user is inventory checker and the time is end of business day
         if role=="inventory-checker" and int(datetime.now().strftime("%H"))>=20:
-            print("You are inventory checker and now is the end of business day")
+            print("\nYou are inventory checker and now is the end of business day")
             print("ALERT: Please perform stock-taking")
             stock_taking(role)
 
         # If user is purchaser and the time is end of business day
         if role=="purchaser" and int(datetime.now().strftime("%H"))>=20:
-            print("You are purchaser and now is the end of business day")
+            print("\nYou are purchaser and now is the end of business day")
             print("ALERT: Please view replenish list")
-            pass # waiting view replenish list function
+            view_replenish_list(role)
 
         try:
             # Display list options
@@ -289,7 +290,7 @@ def add_user(role:str) -> None:
         while True:
             errors=[]
             #Guide user to input
-            print("Format: <username>,<password>,<user_type>\nExample input: Ali,1234A@bc,purchaser\nTo return back to main menu, type \"q\"\n")
+            print("Format: <username>,<password>,<user_type>\nExample input: Ali,1234A@bc,purchaser\nTo return back to main menu, type 'q'\n")
 
             # Get new user's info 
             user_info=(input("Please enter new user's info: ").rstrip()).split(",")
@@ -684,6 +685,9 @@ def stock_replenishment(role:str) -> None:
             print("\nERROR:",e)
 
     print("EXIT Stock-replenmishment")
+
+def view_replenish_list(role:str) -> None:
+    pass
 
 # This system will not run automatically if it's imported as module in another file
 if __name__=='__main__':
