@@ -5,7 +5,7 @@ from datetime import datetime
 # Main menu
 def main() -> None: 
     # Assume that the "End of business day" is after 8pm, Mon-Sun
-    
+
     role=""
     # Access control
     option_ls={
@@ -31,7 +31,7 @@ def main() -> None:
         if role=="purchaser" and int(datetime.now().strftime("%H"))>=20:
             print("\nYou are purchaser and now is the end of business day")
             print("ALERT: Please view replenish list")
-            view_replenish_list(role)
+            view_replenish_list(role) 
 
         try:
             # Display list options
@@ -548,7 +548,7 @@ def stock_taking(role:str) -> None:
     #Welcome message
     print("\nYou are now at: ▶ Stock Taking ◀\n")
     
-     # Validate user type
+    # Validate user type
     while True: 
         if role not in access_allowed: #check if user is admin
             print("REJECTED: You have no permission to access this, please login again!")
@@ -598,10 +598,10 @@ def stock_taking(role:str) -> None:
                         with open(file_dir, "w") as inventory_file:
                             inventory_file.writelines(updated_data_ls) 
                         print(f"\nSUCCESS: Quantity for item code {ItemCode} has been updated to {NewQuantity}\n")
-                        break #returns to main menu after made changes to quantity
+                        break #returns to item code selection after made changes to quantity in file
                     else:
                         print("No change")
-                        break #returns to main menu
+                        break #returns back to item code selection
             else: # If can't find the input item code until the end of file
                 raise Exception("Item code not exists") 
         except Exception as e:
@@ -664,8 +664,8 @@ def stock_replenishment(role:str) -> None:
                     QuantityIncrease = input(f"Please enter quantity to add to current amount for item code {ItemCode}: ").strip() 
 
                     if QuantityIncrease=="b":
-                        print("No change")
-                        break
+                        print("No change") 
+                        break # return to item code selection
                     #check if input is a positive integer
                     if not QuantityIncrease.isdecimal():
                         raise Exception("Quantity must be positive integer") 
@@ -677,7 +677,7 @@ def stock_replenishment(role:str) -> None:
                     with open(file_dir, "w") as inventory_file:
                         inventory_file.writelines(updated_data_ls) 
                     print(f"\nSUCCESS: Quantity for item code {ItemCode} has been updated to {data_ls[row][5]}\n")
-                    break # return to main menu after made changes to quantity
+                    break # return to item code selection after made changes to quantity in file
                     
             else: # If can't find the input item code until the end of file
                 raise Exception("Item code not exists") 
