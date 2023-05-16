@@ -64,7 +64,7 @@ def add_user(role: str) -> None:
                 print("\nType 'y' to confirm, or any other characters to discard")
 
                 # If user confirmed, add data
-                if input("Confirm? [y]: ").lower().strip() == "y":
+                if input("Confirm? : ").lower().strip() == "y":
                     row_num=sum(1 for x in open(file_dir, "r")) # Get row number
 
                     # Open file and append userdata
@@ -81,7 +81,7 @@ def add_user(role: str) -> None:
 
                     # Ask user if want to add new user or exit
                     print("Type 'y' to add another user, other characters to quit. ")
-                    if input("Add another user [y] or exit?").lower().strip() =="y": # If user request to continue adding new user
+                    if input("Add another user  or exit?").lower().strip() =="y": # If user request to continue adding new user
                         print("\n\nYou are now at: ▶ Add New User (Admin only) ◀")
                         continue
                     else: # If user request to exit
