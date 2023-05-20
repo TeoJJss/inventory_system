@@ -7,6 +7,7 @@ def main() -> None:
     # Assume that the "End of business day" is after 8pm, Mon-Sun
 
     role=""
+    auto=True
     # Access control
     option_ls={
             "admin": ["insert_item", "update_item", "delete_item", "stock_taking", 
@@ -20,18 +21,21 @@ def main() -> None:
         # Authentication
         if not role:
             role=user_authentication()
+            auto=True
+        
+        if auto: # This should only do one time for each login
+            # If user is inventory checker and the time is end of business day
+            if role=="inventory-checker" and int(datetime.now().strftime("%H"))>=20:
+                print("\nYou are inventory checker and now is the end of business day")
+                print("ALERT: Please perform stock-taking")
+                stock_taking(role)
 
-        # If user is inventory checker and the time is end of business day
-        if role=="inventory-checker" and int(datetime.now().strftime("%H"))>=20:
-            print("\nYou are inventory checker and now is the end of business day")
-            print("ALERT: Please perform stock-taking")
-            stock_taking(role)
-
-        # If user is purchaser and the time is end of business day
-        if role=="purchaser" and int(datetime.now().strftime("%H"))>=20:
-            print("\nYou are purchaser and now is the end of business day")
-            print("ALERT: Please view replenish list")
-            view_replenish_list(role) 
+            # If user is purchaser and the time is end of business day
+            if role=="purchaser" and int(datetime.now().strftime("%H"))>=20:
+                print("\nYou are purchaser and now is the end of business day")
+                print("ALERT: Please view replenish list")
+                view_replenish_list(role)
+            auto=False 
 
         try:
             # Display list options
@@ -69,7 +73,6 @@ def main() -> None:
         except Exception as e:
             print("ERROR:", e)
 
-""""""
 # Ng Jan Hwan
 # TP068352
 # Login authentication
@@ -677,7 +680,7 @@ def stock_replenishment(role:str) -> None:
 # Lim Heng Yang
 # TP067926
 # Insert item
-def view_replenish_list(role:str)->None:
+def view_replenish_list(role:str) -> None:
     # Initialization
     access_allowed=("admin", "purchaser")
     data_list = []
@@ -704,7 +707,7 @@ def view_replenish_list(role:str)->None:
     print("Exit view replenish list")
 
 # This function is to get item list and save in 2D list
-def inventory_data_list()->list:
+def inventory_data_list() -> list:
     file_dir="inventory.txt"
     # Open file and save each line into a list
     with open(file_dir, "r") as inventory_file:
