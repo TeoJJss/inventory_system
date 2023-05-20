@@ -486,9 +486,12 @@ def delete_item(role:str) -> None:
                 inventory_file.seek(0)
                 data_ls = inventory_file.readlines()
             
-            # Taking item code from the table
-            # Get item 2D list
-            data_ls=inventory_data_list()
+            # Convert to 2D list
+            for ind, data in enumerate(data_ls):
+                data_ls[ind] = data.rstrip().split("\t")
+            # Collect item codes
+            for line in data_ls:
+                code_ls.append(line[0])
             
             try:
 
