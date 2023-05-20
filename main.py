@@ -31,7 +31,7 @@ def main() -> None:
                 stock_taking(role)
 
             # If user is purchaser and the time is end of business day
-            if role=="purchaser" and int(datetime.now().strftime("%H"))>=20:
+            elif role=="purchaser" and int(datetime.now().strftime("%H"))>=20:
                 print("\nYou are purchaser and now is the end of business day")
                 print("ALERT: Please view replenish list")
                 view_replenish_list(role)
@@ -58,12 +58,12 @@ def main() -> None:
                 print("\nEXIT GROCERY STORE INVENTORY SYSTEM")
                 exit()
             # Logout
-            if inp.strip()=="l":
+            elif inp.strip()=="l":
                 role=""
                 print("\nLog Out")
                 continue
             # Execute option's function
-            if inp.strip().isdecimal() and 0<int(inp)<=len(option_ls[role]):
+            elif inp.strip().isdecimal() and 0<int(inp)<=len(option_ls[role]):
                 eval(option_ls[role][int(inp)-1]+"(role)")
             # Error
             else:
