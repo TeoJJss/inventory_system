@@ -484,10 +484,8 @@ def delete_item(role:str) -> None:
                 data_ls = inventory_file.readlines()
             
             # Taking item code from the table
-            for ind, data in enumerate(data_ls):
-                data_ls[ind] = data.rstrip().split("\t")
-            for line in data_ls:
-                code_ls.append(line[0])
+            # Get item 2D list
+            data_ls=inventory_data_list()
             
             try:
 
@@ -554,13 +552,8 @@ def stock_taking(role:str) -> None:
             print("REJECTED: You have no permission to access this, please login again!")
             break 
         try:
-            # Save each line in the file to a list
-            with open(file_dir, "r") as inventory_file:
-                data_ls=inventory_file.readlines()
-            
-            # Convert list to 2D list
-            for ind, data in enumerate(data_ls):
-                data_ls[ind]=data.rstrip().split("\t")
+            # Get item 2D list
+            data_ls=inventory_data_list()
 
             # Display existing inventory
             print("Below are the existing inventory:")
@@ -632,13 +625,8 @@ def stock_replenishment(role:str) -> None:
             print("REJECTED: You have no permission to access this, please login again!")
             break 
         try:
-            # Save each line in the file to a list
-            with open(file_dir, "r") as inventory_file:
-                data_ls=inventory_file.readlines()
-            
-            # Convert list to 2D list
-            for ind, data in enumerate(data_ls):
-                data_ls[ind]=data.rstrip().split("\t")
+            # Get item 2D list
+            data_ls=inventory_data_list()
 
             # Display existing inventory
             print("Below are the existing inventory:")
@@ -686,8 +674,46 @@ def stock_replenishment(role:str) -> None:
 
     print("EXIT Stock-replenmishment")
 
-def view_replenish_list(role:str) -> None:
-    pass
+# Lim Heng Yang
+# TP067926
+# Insert item
+def view_replenish_list(role:str)->None:
+    # Initialization
+    access_allowed=("admin", "purchaser")
+    data_list = []
+
+    print("You are now at ▶ View Replenish List ◀\n")
+    print("Please replenish items below:\n")
+    
+    # Check user's role
+    if role not in access_allowed:
+        print("REJECTED: You have no permission to access this, please login again!")
+    else:
+        # Get items 2D List
+        data_list=inventory_data_list()
+
+        # Display items with quantity lower than minimum
+        print("{:10} {:20} {:15} {:10} {:10} {:10} {:10}".format(*["Code", "Description", "Category", "Unit", "Price", "Quantity", "Minimum (Threshold)"]))
+        for row in data_list:
+            if int(row[5])<int(row[6]):
+                print("{:10} {:20} {:15} {:10} {:10}\t{:10}\t{:10}".format(*row))
+
+        # Return to main menu after user finish reading
+        if input("Type any character to exit after finish reading: "):
+            pass
+    print("Exit view replenish list")
+
+# This function is to get item list and save in 2D list
+def inventory_data_list()->list:
+    file_dir="inventory.txt"
+    # Open file and save each line into a list
+    with open(file_dir, "r") as inventory_file:
+        data_list=inventory_file.readlines()
+    
+    # Convert to 2D list
+    for ind, data in enumerate(data_list):
+        data_list[ind]=data.rstrip().split("\t")
+    return data_list
 
 # This system will not run automatically if it's imported as module in another file
 if __name__=='__main__':
