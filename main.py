@@ -11,9 +11,9 @@ def main() -> None:
     # Access control
     option_ls={
             "admin": ["insert_item", "update_item", "delete_item", "stock_taking", 
-                      "view_replenish_list", "stock_replenishment", "search_item", "add_user"],
-            "inventory-checker": ["stock_taking", "search_item"],
-            "purchaser": ["view_replenish_list", "stock_replenishment", "search_item"]
+                      "view_replenish_list", "stock_replenishment", "search_items", "add_user"],
+            "inventory-checker": ["stock_taking", "search_items"],
+            "purchaser": ["view_replenish_list", "stock_replenishment", "search_items"]
             }
     # Welcome message
     print("\nWelcome to ▶ GROCERY STORE INVENTORY SYSTEM ◀\n")
@@ -73,6 +73,18 @@ def main() -> None:
         except Exception as e:
             print("ERROR:", e)
 
+# This function is to get item list and save in 2D list
+def inventory_data_list() -> list:
+    file_dir="inventory.txt"
+    # Open file and save each line into a list
+    with open(file_dir, "r") as inventory_file:
+        data_list=inventory_file.readlines()
+    
+    # Convert to 2D list
+    for ind, data in enumerate(data_list):
+        data_list[ind]=data.rstrip().split("\t")
+    return data_list
+
 # Ng Jan Hwan
 # TP068352
 # Login authentication
@@ -103,6 +115,194 @@ def user_authentication() -> str:
                 return role
         else:
             print("Authentication failed! Incorrect password or username, please login again.")
+
+# Teo Jun JIa
+# TP067775
+# Add user
+def add_user(role:str) -> None: 
+    # Assume that username should be unique
+    # Assume user's password must be minimum 8 in length
+    # Assume there are only 3 roles that will use the system, which are "admin", "inventory-checker" and "purchaser" 
+    # Assume that "userdata.txt" is placed in the same directory as this file
+
+    # Initialization
+    file_dir="userdata.txt"
+    user_info=""
+    access_allowed=("admin",) # Only admin can add new user
+
+    # Welcome message
+    print("\nYou are now at: ▶ Add New User (Admin only) ◀\nTo add a new user, you need to specify username, password and user type. Please type these data separated by comma(,)\nMinimum 8 characters required for password.\nWARNING: username and password are both case-sensitive and space-sensitive!\n")
+    # Validate user type
+    if role not in access_allowed:
+        print("REJECTED: You have no permission to access this, please login again!")
+
+    # If user is admin
+    else:
+        user_type_allowed=("admin", "inventory-checker", "purchaser") # 3 types of user allowed to input
+
+        # Repeat asking user to input new user's details until request to exit
+        while True:
+            errors=[]
+            #Guide user to input
+            print("Format: <username>,<password>,<user_type>\nExample input: Ali,1234A@bc,purchaser\nTo return back to main menu, type 'q'\n")
+
+            # Get new user's info 
+            user_info=(input("Please enter new user's info: ").rstrip()).split(",")
+
+            try:
+                # Data validation
+                # If user choose to exit
+                if len(user_info)==1 and "q" in user_info:
+                    break
+
+                # If not 2 commas in the input
+                if len(user_info) !=3:
+                    raise Exception("Please input username, password and user type!")
+                
+                # If username is empty
+                if len(user_info[0].strip())<1:
+                    errors.append("Username cannot be empty!")
+                
+                # If password length not exceed 8
+                if len(user_info[1])<8 :
+                    errors.append("Password length must more than or equal to 8!")
+                
+                # If user type is invalid
+                if user_info[2].lower().strip() not in user_type_allowed:
+                    errors.append("Invalid user type!")
+
+                if errors:
+                    raise Exception(errors)
+
+                # After data validation pass
+                # Confirm with user before adding the data into txt
+                username, password, user_type=user_info
+                print(f"\n\nNew user info\nusername: {username.strip()}\t|\tpassword: {password}\t|\tuser_type: {user_type.lower().strip()}")
+                print("\nType 'y' to confirm, or any other characters to discard")
+
+                # If user confirmed, add data
+                if input("Confirm? (y): ").lower().strip() == "y":
+                    row_num=sum(1 for x in open(file_dir, "r")) # Get row number
+
+                    # Open file and append userdata
+                    with open(file_dir, "a+") as credential_file:
+                        # Reject if the user already exists
+                        credential_file.seek(0)
+                        if any([line for line in credential_file.readlines() if username.strip() == line.split("\t", 2)[1].strip()]):
+                            raise Exception("User already exists!")
+                        
+                        # If user not exist
+                        else:
+                            credential_file.write(f"{row_num+1}\t{username.strip()}\t{password}\t{user_type.lower().strip()}\n")
+                            print("\nAdded successfully!\n\n")
+
+                    # Ask user if want to add new user or exit
+                    print("Type 'y' to add another user, other characters to quit. ")
+                    if input("Add another user or exit?(y)").lower().strip() =="y": # If user request to continue adding new user
+                        print("\n\nYou are now at: ▶ Add New User (Admin only) ◀")
+                        continue
+                    else: # If user request to exit
+                        break
+                
+                # If user choose to discard data
+                else:
+                    print("\nDISCARDED\n")
+                    continue 
+
+            # Error handler
+            except Exception as e:
+                user_info="" # user info reset if any error is found
+                print("\n\nERROR:",e, "\n")
+    
+    # Code below will be run if user choose to exit and the loop breaks
+    print("\nEXIT add user function\n")
+
+# Lim Heng Yang
+# TP067926
+# Insert item 
+def insert_item(role:str) -> None:
+    # Assume item code's format is 5-digit number and unique
+    # Assume that "inventory.txt" is placed in the same directory as this file
+    # Assume that price must be in 2 decimal format
+
+    print("\nYou are now at: ▶ Add Items (Admin only) ◀")
+    file_dir="inventory.txt"
+    # Initialize
+    product_info="" # This variable is to accept input
+    datalist = [] # This list is to store data temporarily
+    codelist=[] # This list is to store item codes in the temporary datalist
+    # Only the admin can access
+    access_allowed=("admin",) # Only admin can access
+
+    # While loop is used so user can bulk import items
+    while True:   
+        if role not in access_allowed: # Check permission
+            print("REJECTED: You have no permission to access this, please login again!")
+            break # Return to main menu
+            
+        try:
+            # Collect the item codes into a list
+            if datalist:
+                codelist=[code[:5] for code in datalist]
+            print('\nPlease enter all the information based on the format below\nFORMAT: <Code>,<Description>,<Category>,<Unit>,<Price>,<Quantity>,<Minimum>\n')
+            print("Type 'q' to return back to main menu")
+            product_info=input('Please enter all the information of this product: ').split(",")
+
+            if len(product_info)==1 and "q" in product_info: # If user choose to exit
+                break
+
+            # Check if 7 details in the input
+            if len(product_info) !=7:
+                raise Exception ("Invalid input format! Please enter according to format.")
+
+            # Check if item code is 5 digit number
+            if not product_info[0].strip().isdecimal() or not len(product_info[0].strip())==5:
+                raise Exception ("Please enter a 5 digit number for item code.")
+            else:
+                # Check if item code is unique
+                with open(file_dir, 'r') as inventoryfile:
+                    for line in inventoryfile.readlines():
+                        if product_info[0] in line[:5] or product_info[0] in codelist: # Check both file and datalist if the item code exists
+                            raise Exception ("The item code must be unique")
+            
+            if not product_info[1].strip(): # Check description if empty
+                raise Exception ("Description is empty, please enter the description for this product.")
+            
+            if not product_info[2].strip(): # Check category if empty
+                raise Exception ("Cateogry is empty, please enter the category for this product")
+            
+            if not product_info[3].strip(): # Check Unit if empty
+                raise Exception ("Unit is empty, please enter the Unit of this product.")
+            
+            # Try convert Price to 2 decimal, or throw error
+            try: 
+                product_info[4]='%.2f' % float(product_info[4].strip())
+            except:
+                raise Exception ("Price must be number.")
+                
+            #Check if quanity is positive integer
+            if not product_info[5].strip().isdecimal():
+                raise Exception ("Quantity must be positive integer.")
+            
+            #Check if minimum is positive integer
+            if not product_info[6].strip().isdecimal():
+                raise Exception ("Minimum must be positive integer.")
+
+            # Save temporarily in a list
+            datalist.append("\t".join(product_info)+"\n")
+            
+            if input("Type 'y' to continue adding new item: ") =='y': 
+                continue # If user want to continue add other items, loop again
+            else: # If user doesn't want to add other items
+                with open(file_dir, 'a') as inventoryfile: # Open file in append mode
+                    inventoryfile.writelines(datalist)
+                print("Item(s) added successfully")
+                break # Return back to main menu after finish adding items
+
+        except Exception as e:
+            print("\nERROR:",e)
+
+    print("\nEXIT insert item function")
 
 # Teo Jun Jia
 # TP067775
@@ -264,194 +464,6 @@ def update_item(role:str) -> None:
                 print("\n\nERROR:",e, "\n") # Display error message
                 continue
     print("\nEXIT update item function")
-
-# Teo Jun JIa
-# TP067775
-# Add user
-def add_user(role:str) -> None: 
-    # Assume that username should be unique
-    # Assume user's password must be minimum 8 in length
-    # Assume there are only 3 roles that will use the system, which are "admin", "inventory-checker" and "purchaser" 
-    # Assume that "userdata.txt" is placed in the same directory as this file
-
-    # Initialization
-    file_dir="userdata.txt"
-    user_info=""
-    access_allowed=("admin",) # Only admin can add new user
-
-    # Welcome message
-    print("\nYou are now at: ▶ Add New User (Admin only) ◀\nTo add a new user, you need to specify username, password and user type. Please type these data separated by comma(,)\nMinimum 8 characters required for password.\nWARNING: username and password are both case-sensitive and space-sensitive!\n")
-    # Validate user type
-    if role not in access_allowed:
-        print("REJECTED: You have no permission to access this, please login again!")
-
-    # If user is admin
-    else:
-        user_type_allowed=("admin", "inventory-checker", "purchaser") # 3 types of user allowed to input
-
-        # Repeat asking user to input new user's details until request to exit
-        while True:
-            errors=[]
-            #Guide user to input
-            print("Format: <username>,<password>,<user_type>\nExample input: Ali,1234A@bc,purchaser\nTo return back to main menu, type 'q'\n")
-
-            # Get new user's info 
-            user_info=(input("Please enter new user's info: ").rstrip()).split(",")
-
-            try:
-                # Data validation
-                # If user choose to exit
-                if len(user_info)==1 and "q" in user_info:
-                    break
-
-                # If not 2 commas in the input
-                if len(user_info) !=3:
-                    raise Exception("Please input username, password and user type!")
-                
-                # If username is empty
-                if len(user_info[0].strip())<1:
-                    errors.append("Username cannot be empty!")
-                
-                # If password length not exceed 8
-                if len(user_info[1])<8 :
-                    errors.append("Password length must more than or equal to 8!")
-                
-                # If user type is invalid
-                if user_info[2].lower().strip() not in user_type_allowed:
-                    errors.append("Invalid user type!")
-
-                if errors:
-                    raise Exception(errors)
-
-                # After data validation pass
-                # Confirm with user before adding the data into txt
-                username, password, user_type=user_info
-                print(f"\n\nNew user info\nusername: {username.strip()}\t|\tpassword: {password}\t|\tuser_type: {user_type.lower().strip()}")
-                print("\nType 'y' to confirm, or any other characters to discard")
-
-                # If user confirmed, add data
-                if input("Confirm? (y): ").lower().strip() == "y":
-                    row_num=sum(1 for x in open(file_dir, "r")) # Get row number
-
-                    # Open file and append userdata
-                    with open(file_dir, "a+") as credential_file:
-                        # Reject if the user already exists
-                        credential_file.seek(0)
-                        if any([line for line in credential_file.readlines() if username.strip() == line.split("\t", 2)[1].strip()]):
-                            raise Exception("User already exists!")
-                        
-                        # If user not exist
-                        else:
-                            credential_file.write(f"{row_num+1}\t{username.strip()}\t{password}\t{user_type.lower().strip()}\n")
-                            print("\nAdded successfully!\n\n")
-
-                    # Ask user if want to add new user or exit
-                    print("Type 'y' to add another user, other characters to quit. ")
-                    if input("Add another user or exit?(y)").lower().strip() =="y": # If user request to continue adding new user
-                        print("\n\nYou are now at: ▶ Add New User (Admin only) ◀")
-                        continue
-                    else: # If user request to exit
-                        break
-                
-                # If user choose to discard data
-                else:
-                    print("\nDISCARDED\n")
-                    continue 
-
-            # Error handler
-            except Exception as e:
-                user_info="" # user info reset if any error is found
-                print("\n\nERROR:",e, "\n")
-    
-    # Code below will be run if user choose to exit and the loop breaks
-    print("\nEXIT add user function\n")
-
-# Lim Heng Yang
-# TP067926
-# Insert item 
-def insert_item(role:str) -> None:
-    # Assume item code's format is 5-digit number and unique
-    # Assume that "inventory.txt" is placed in the same directory as this file
-    # Assume that price must be in 2 decimal format
-
-    print("\nYou are now at: ▶ Add Items (Admin only) ◀")
-    file_dir="inventory.txt"
-    # Initialize
-    product_info="" # This variable is to accept input
-    datalist = [] # This list is to store data temporarily
-    codelist=[] # This list is to store item codes in the temporary datalist
-    # Only the admin can access
-    access_allowed=("admin",)
-
-    # While loop is used so user can bulk import items
-    while True:   
-        if role not in access_allowed: # Check permission
-            print("REJECTED: You have no permission to access this, please login again!")
-            break # Return to main menu
-            
-        try:
-            # Collect the item codes into a list
-            if datalist:
-                codelist=[code[:5] for code in datalist]
-            print('\nPlease enter all the information based on the format below\nFORMAT: <Code>,<Description>,<Category>,<Unit>,<Price>,<Quantity>,<Minimum>\n')
-            print("Type 'q' to return back to main menu")
-            product_info=input('Please enter all the information of this product: ').split(",")
-
-            if len(product_info)==1 and "q" in product_info: # If user choose to exit
-                break
-
-            # Check if 7 details in the input
-            if len(product_info) !=7:
-                raise Exception ("Invalid input format! Please enter according to format.")
-
-            # Check if item code is 5 digit number
-            if not product_info[0].strip().isdecimal() or not len(product_info[0].strip())==5:
-                raise Exception ("Please enter a 5 digit number for item code.")
-            else:
-                # Check if item code is unique
-                with open(file_dir, 'r') as inventoryfile:
-                    for line in inventoryfile.readlines():
-                        if product_info[0] in line[:5] or product_info[0] in codelist: # Check both file and datalist if the item code exists
-                            raise Exception ("The item code must be unique")
-            
-            if not product_info[1].strip(): # Check description if empty
-                raise Exception ("Description is empty, please enter the description for this product.")
-            
-            if not product_info[2].strip(): # Check category if empty
-                raise Exception ("Cateogry is empty, please enter the category for this product")
-            
-            if not product_info[3].strip(): # Check Unit if empty
-                raise Exception ("Unit is empty, please enter the Unit of this product.")
-            
-            # Try convert Price to 2 decimal, or throw error
-            try: 
-                product_info[4]='%.2f' % float(product_info[4].strip())
-            except:
-                raise Exception ("Price must be number.")
-                
-            #Check if quanity is positive integer
-            if not product_info[5].strip().isdecimal():
-                raise Exception ("Quantity must be positive integer.")
-            
-            #Check if minimum is positive integer
-            if not product_info[6].strip().isdecimal():
-                raise Exception ("Minimum must be positive integer.")
-
-            # Save temporarily in a list
-            datalist.append("\t".join(product_info)+"\n")
-            
-            if input("Type 'y' to continue adding new item: ") =='y': 
-                continue # If user want to continue add other items, loop again
-            else: # If user doesn't want to add other items
-                with open(file_dir, 'a') as inventoryfile: # Open file in append mode
-                    inventoryfile.writelines(datalist)
-                print("Item(s) added successfully")
-                break # Return back to main menu after finish adding items
-
-        except Exception as e:
-            print("\nERROR:",e)
-
-    print("\nEXIT insert item function")
 
 # Ng Jan Hwan
 # TP068352
@@ -682,10 +694,10 @@ def stock_replenishment(role:str) -> None:
 
 # Lim Heng Yang
 # TP067926
-# Insert item
+# View Replenish List
 def view_replenish_list(role:str) -> None:
     # Initialization
-    access_allowed=("admin", "purchaser")
+    access_allowed=("admin", "purchaser") # Only admin and purchaser can acceess
     data_list = []
 
     print("You are now at ▶ View Replenish List ◀\n")
@@ -709,17 +721,116 @@ def view_replenish_list(role:str) -> None:
             pass
     print("Exit view replenish list")
 
-# This function is to get item list and save in 2D list
-def inventory_data_list() -> list:
-    file_dir="inventory.txt"
-    # Open file and save each line into a list
-    with open(file_dir, "r") as inventory_file:
-        data_list=inventory_file.readlines()
+# Nathaniel Chia Yun Bing
+# TP068885
+# Search Items
+def search_items(role):
+    # Assume that "inventory.txt" is placed in the same directory as this file
+
+    #Initialize
+    access_allowed=("admin","inventory-checker", "purchaser") # Only admin and inventory checker can search items
+    data_ls=[]
+
+    #Welcome message
+    print("\nYou are now at: ▶ Search Items ◀\n")
     
-    # Convert to 2D list
-    for ind, data in enumerate(data_list):
-        data_list[ind]=data.rstrip().split("\t")
-    return data_list
+    # Validate user type
+    while True: 
+        if role not in access_allowed:
+            print("REJECTED: You have no permission to access this, please login again!")
+            break 
+        try:
+            # Get items 2D List
+            data_ls=inventory_data_list()
+ 
+            print("\nTo search items, please choose which method you want to use to search your required items \n 1.Description \n 2.Code range \n 3.Category \n 4.Price ")
+            print("Type 'q' to go back to main menu.")
+
+            # Let user to choose a method
+            Method=input("\nPlease enter the method number: ")
+
+            if Method.strip()=="q": # User requests to exit
+                break #returns to main menu
+            elif Method.isdecimal() and 0<int(Method)<=4: # If user enter a valid option
+                found=False
+                if Method.strip()=="1": # Search using description
+                    Description = input("Please input the item's description: ").strip()
+
+                    # Display item list
+                    print("{:10} {:20} {:15} {:10} {:10} {:10} {:10}".format(*["Code", "Description", "Category", "Unit", "Price", "Quantity", "Minimum (Threshold)"]))
+                    for row in range(len(data_ls)): 
+                        if data_ls[row][1].strip().lower()==Description.lower():
+                            print("{:10} {:20} {:15} {:10} {:10}\t{:10}\t{:10}".format(*data_ls[row]))
+                            found=True
+                        if row==(len(data_ls)-1) and found: # Search until the end of file
+                            break
+                    else: # If no item is displayed
+                        raise Exception("Item cannot be found")
+
+                elif Method.strip()=="2": # Search using item code range
+                    print("Enter item code range separated by '~'")
+                    print("Format: <initial>~<final>")
+                    print("Example: 30000~39999")
+                    CodeRange=input("Please enter item code range based on format: ").strip().split("~")
+                    if len(CodeRange)!=2: # If wrong input format
+                        raise Exception("Please enter input based on format!")
+                    
+                    # If item code is in invalid format
+                    elif not CodeRange[0].isdecimal() or not CodeRange[1].isdecimal() or len(CodeRange[0])!=5 or len(CodeRange[1])!=5:
+                        raise Exception("Please enter 5-digit item code for both initial and final!")
+                        
+                    elif int(CodeRange[0])>int(CodeRange[1]): # If initial smaller than final
+                        raise Exception("Initial must be smaller than final!")
+                    
+                    # Display item list
+                    print("{:10} {:20} {:15} {:10} {:10} {:10} {:10}".format(*["Code", "Description", "Category", "Unit", "Price", "Quantity", "Minimum (Threshold)"]))
+                    for row in range(len(data_ls)):
+                        if int(data_ls[row][0]) in range(int(CodeRange[0]), int(CodeRange[1])+1):
+                            print("{:10} {:20} {:15} {:10} {:10}\t{:10}\t{:10}".format(*data_ls[row]))
+                            found=True
+                        if row==(len(data_ls)-1) and found: # Search until the end of file
+                            break
+                    else:
+                        raise Exception("Item cannot be found")
+
+                elif Method.strip()=="3": # Search using item category
+                    Category = input("Please input the item category: ").strip()
+
+                    # Display item list
+                    print("{:10} {:20} {:15} {:10} {:10} {:10} {:10}".format(*["Code", "Description", "Category", "Unit", "Price", "Quantity", "Minimum (Threshold)"]))
+                    for row in range(len(data_ls)):
+                        if data_ls[row][2].strip().lower()==Category:
+                            print("{:10} {:20} {:15} {:10} {:10}\t{:10}\t{:10}".format(*data_ls[row]))
+                            found=True
+                        if row==(len(data_ls)-1) and found: # Search until the end of file
+                            break
+                    else:
+                        raise Exception("Item cannot be found")
+
+                elif Method.strip()=="4": # Search using price range
+                    print("Enter the item price range\nWARNING: All prices will be rounded to 2 decimal")
+                    try:
+                        min="%.2f" % (float(input("Price min: "))) # Convert to 2 decimal
+                        max="%.2f" % (float(input("Price max: "))) # Convert to 2 decimal
+                    except ValueError: # If entered values are not number
+                        raise Exception("Price must be number!")
+                    
+                    # Display item list
+                    print("{:10} {:20} {:15} {:10} {:10} {:10} {:10}".format(*["Code", "Description", "Category", "Unit", "Price", "Quantity", "Minimum (Threshold)"]))
+                    for row in range(len(data_ls)):
+                        if float(min) <= float(data_ls[row][4]) <= float(max):
+                            print("{:10} {:20} {:15} {:10} {:10}\t{:10}\t{:10}".format(*data_ls[row]))
+                            found=True
+                        if row==(len(data_ls)-1) and found:
+                            break
+                    else:
+                        raise Exception("Item cannot be found")
+            else:
+                raise Exception("Invalid option!")
+        except Exception as e:
+            print("\nERROR:",e)
+
+    print("EXIT search item")
 
 # This system will not run automatically if it's imported as module in another file
 if __name__=='__main__':
