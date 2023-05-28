@@ -291,7 +291,7 @@ def insert_item(role:str) -> None:
             # Save temporarily in a list
             datalist.append("\t".join(product_info)+"\n")
             
-            if input("Type 'y' to continue adding new item: ") =='y': 
+            if input("Type 'y' to continue adding new item, or any other character to submit: ") =='y': 
                 continue # If user want to continue add other items, loop again
             else: # If user doesn't want to add other items
                 with open(file_dir, 'a') as inventoryfile: # Open file in append mode
