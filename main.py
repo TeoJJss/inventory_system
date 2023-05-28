@@ -717,8 +717,7 @@ def view_replenish_list(role:str) -> None:
                 print("{:10} {:20} {:15} {:10} {:10}\t{:10}\t{:10}".format(*row))
 
         # Return to main menu after user finish reading
-        if input("Type any character to exit after finish reading: "):
-            pass
+        input("Type any character to exit after finish reading: ")
     print("Exit view replenish list")
 
 # Nathaniel Chia Yun Bing
