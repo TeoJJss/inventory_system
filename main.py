@@ -799,7 +799,7 @@ def search_items(role):
                     # Display item list
                     print("{:10} {:20} {:15} {:10} {:10} {:10} {:10}".format(*["Code", "Description", "Category", "Unit", "Price", "Quantity", "Minimum (Threshold)"]))
                     for row in range(len(data_ls)):
-                        if data_ls[row][2].strip().lower()==Category:
+                        if data_ls[row][2].strip().lower()==Category.lower():
                             print("{:10} {:20} {:15} {:10} {:10}\t{:10}\t{:10}".format(*data_ls[row]))
                             found=True
                         if row==(len(data_ls)-1) and found: # Search until the end of file

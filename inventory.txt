@@ -1,8 +1,6 @@
-20000	Beef 200g	Freezer	Pack	1.00	54	7
-21000	Chicken thigh	Freezer	Pieces	1.00	20	5
-30000	Apple	Fruits	Pieces	1.00	50	30
-32000	Orange	Fruits	Pieces	1.00	50	30
-40000	Cabbage	vegetable	piece	2.50	10	10
-41000	Broccoli	vegetable	pieces	2.50	10	15
-10000	Yogurt	Drink	Box	5.20	1	5
-12000	Yakult	Drink	box	10.00	12	10
+10000	Milk 1L	Dairy	box	7.00	30	5
+20000	Beef 200g	Freezer	Pack	20.00	10	7
+21000	Chicken Thigh	Freezer	Pieces	10.00	15	5
+30000	Apple	Fruits	Pieces	2.00	50	30
+32000	Orange	Fruits	Pieces	2.50	50	30
+41000	Broccoli	Vegetables	Pieces	2.50	23	10
