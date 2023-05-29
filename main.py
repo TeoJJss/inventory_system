@@ -1,3 +1,6 @@
+# UCDF2204ICT(SE)
+# AAPP010-4-2-PWP
+# G3
 from datetime import datetime
 
 # Louis Ng Yu Hern
@@ -723,7 +726,7 @@ def view_replenish_list(role:str) -> None:
 # Nathaniel Chia Yun Bing
 # TP068885
 # Search Items
-def search_items(role):
+def search_items(role:str) -> None:
     # Assume that "inventory.txt" is placed in the same directory as this file
 
     #Initialize
