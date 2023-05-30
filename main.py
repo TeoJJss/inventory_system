@@ -247,7 +247,8 @@ def insert_item(role:str) -> None:
             # Collect the item codes into a list
             if datalist:
                 codelist=[code[:5] for code in datalist]
-            print('\nPlease enter all the information based on the format below\nFORMAT: <Code>,<Description>,<Category>,<Unit>,<Price>,<Quantity>,<Minimum>\n')
+            print('\nPlease enter all the information based on the format below\nFORMAT: <Code>,<Description>,<Category>,<Unit>,<Price>,<Quantity>,<Minimum>')
+            print("EXAMPLE: 10000,Milk 1L,Dairy,box,7.00,30,35\n")
             print("Type 'q' to return back to main menu")
             product_info=input('Please enter all the information of this product: ').split(",")
 
