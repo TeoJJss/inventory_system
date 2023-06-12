@@ -1,3 +1,5 @@
+This is a grocery store inventory system built by a group of 5 members, for assignment purpose.  
+
 <b>Workflow</b>  
 ![workflow](src/PWP_workflow.png =300x)  
   

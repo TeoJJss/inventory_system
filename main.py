@@ -1,11 +1,5 @@
-# UCDF2204ICT(SE)
-# AAPP010-4-2-PWP
-# G3
 from datetime import datetime
 
-# Louis Ng Yu Hern
-# TP068493
-# Main menu
 def main() -> None: 
     # Assume that the "End of business day" is after 8pm, Mon-Sun
 
@@ -76,7 +70,6 @@ def main() -> None:
         except Exception as e:
             print("ERROR:", e)
 
-# This function is to get item list and save in 2D list
 def inventory_data_list() -> list:
     file_dir="inventory.txt"
     # Open file and save each line into a list
@@ -88,9 +81,6 @@ def inventory_data_list() -> list:
         data_list[ind]=data.rstrip().split("\t")
     return data_list
 
-# Ng Jan Hwan
-# TP068352
-# Login authentication
 def user_authentication() -> str:
     # Assume "userdata.txt" is placed in the same directory as code file
     # Assume that credentials in "userdata.txt" are correct
@@ -119,9 +109,6 @@ def user_authentication() -> str:
         else:
             print("Authentication failed! Incorrect password or username, please login again.")
 
-# Teo Jun JIa
-# TP067775
-# Add user
 def add_user(role:str) -> None: 
     # Assume that username should be unique
     # Assume user's password must be minimum 8 in length
@@ -220,9 +207,6 @@ def add_user(role:str) -> None:
     # Code below will be run if user choose to exit and the loop breaks
     print("\nEXIT add user function\n")
 
-# Lim Heng Yang
-# TP067926
-# Insert item 
 def insert_item(role:str) -> None:
     # Assume item code's format is 5-digit number and unique
     # Assume that "inventory.txt" is placed in the same directory as this file
@@ -308,9 +292,6 @@ def insert_item(role:str) -> None:
 
     print("\nEXIT insert item function")
 
-# Teo Jun Jia
-# TP067775
-# Update item
 def update_item(role:str) -> None:
     # Assume item code's format is 5-digit numbers and unique
     # Assume that "inventory.txt" is placed in the same directory as this file
@@ -469,9 +450,6 @@ def update_item(role:str) -> None:
                 continue
     print("\nEXIT update item function")
 
-# Ng Jan Hwan
-# TP068352
-# Delete item
 def delete_item(role:str) -> None:
     # Assume item code's format is 5-digit numbers and unique
     # Assume "inventory.txt" is placed in the same directory as code file
@@ -551,9 +529,6 @@ def delete_item(role:str) -> None:
                 continue
     print("\nEXIT delete item function")
 
-# Nathaniel Chia Yun Bing
-# TP068885
-# Stock Taking
 def stock_taking(role:str) -> None:
     # Assume item code's format is 5-digit numbers and unique
     # Assume that "inventory.txt" is placed in the same directory as this file
@@ -624,9 +599,6 @@ def stock_taking(role:str) -> None:
 
     print("EXIT Stock-taking")
 
-# Louis Ng Yu Hern
-# TP068493
-# Stock Replenishment
 def stock_replenishment(role:str) -> None:
     # Assume item code's format is 5-digit numbers and unique
     # Assume that "inventory.txt" is placed in the same directory as this file
@@ -696,9 +668,6 @@ def stock_replenishment(role:str) -> None:
 
     print("EXIT Stock-replenmishment")
 
-# Lim Heng Yang
-# TP067926
-# View Replenish List
 def view_replenish_list(role:str) -> None:
     # Initialization
     access_allowed=("admin", "purchaser") # Only admin and purchaser can acceess
@@ -724,9 +693,6 @@ def view_replenish_list(role:str) -> None:
         input("Type any character to exit after finish reading: ")
     print("Exit view replenish list")
 
-# Nathaniel Chia Yun Bing
-# TP068885
-# Search Items
 def search_items(role:str) -> None:
     # Assume that "inventory.txt" is placed in the same directory as this file
 
