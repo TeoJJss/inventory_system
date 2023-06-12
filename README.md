@@ -3,11 +3,6 @@ To run, please ensure Python 3.9 or above is installed. Run using the command be
 ```
 python main.py
 ```
-
-<b>Workflow</b>  
-![workflow](src/PWP_workflow.png =300x)  
-  
----  
   
 <b>Guide to read txt files using Python</b>  
 "column" refers to vertical, "row" refers to horizontal.   
