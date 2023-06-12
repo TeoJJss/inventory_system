@@ -1,4 +1,8 @@
 This is a grocery store inventory system built by a group of 5 members, for assignment purpose.  
+To run, please ensure Python 3.9 or above is installed. Run using the command below:  
+```
+python main.py
+```
 
 <b>Workflow</b>  
 ![workflow](src/PWP_workflow.png =300x)  
