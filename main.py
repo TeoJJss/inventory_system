@@ -212,7 +212,7 @@ def insert_item(role:str) -> None:
     # Assume that "inventory.txt" is placed in the same directory as this file
     # Assume that price must be in 2 decimal format
 
-    print("\nYou are now at: ▶ Add Items (Admin only) ◀")
+    print("\nYou are now at: ▶ Insert Items (Admin only) ◀")
     file_dir="inventory.txt"
     # Initialize
     product_info="" # This variable is to accept input
