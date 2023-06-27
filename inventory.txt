@@ -1,4 +1,40 @@
-11000	Beef 200g	Freezer	Pack	20.00	10	8	
-20000	Chicken thigh	Freezer	Pieces	10.00	15	5	
-32000	Orange	Fruits	pieces	2.50	50	30	
-41000	Broccoli	Vegetables	pieces	2.50	23	10	
+10000	Milk 1L	Dairy	Box	7.00	42	5
+20000	Beef 200g	Freezer	Pack	20.00	10	7
+21000	Chicken thigh	Freezer	Pieces	10.00	15	5
+30000	Apple	Fruits	Pieces	2.00	50	30
+32000	Orange	Fruits	pieces	2.50	50	30
+41000	Broccoli	Vegetables	pieces	2.50	23	10
+11000	Butter	Dairy	Box	5.00	30	5
+42000	Spinach	Vegetable	Pack	4.00	40	10
+33000	Mango	Fruits	Pieces	3.50	50	20
+31000	Pineapple	Fruits	Pineapple	7.00	30	15
+35000	Grapes	Fruits	Box	12.00	40	15
+50000	Toilet Paper	Toiletries	Pack	10.00	30	35
+51000	Body Wash	Toiletries	Bottle	10.00	30	10
+51500	Shampoo	Toiletries	Bottle	10.00	30	10
+52000	Bar Soap	Toiletries	Pack	5.00	20	10
+20100	Beef Patty	Freezer	Pack	15.00	15	8
+21100	Chicken Patty	Freezer	Pack	8.00	15	8
+22000	Whole Salmon	Freezer	Piece	150.00	5	3
+22100	Salmon Slice	Freezer	Piece	15.00	10	5
+23000	Minced Pork 500g	Freezer	Pack	5.00	15	5
+23100	Streaky Bacon	Freezer	Pack	15.00	20	10
+43000	Lettuce	Vegetable	Piece	4.00	15	5
+44000	French Bean 200g	Vegetable	Pack	5.00	15	5
+45000	Potato	Vegetable	Pack	4.00	15	8
+23200	Pork Shoulder 300g	Freezer	Piece	12.00	10	5
+23300	Pork Balls 500g	Freezer	Pack	10.00	20	10
+21200	Chicken Drumstick	Freezer	Piece	5.00	15	5
+21400	Chicken Nuggets 500g	Freezer	Pack	10.00	10	25
+21300	Chicken Wings	Freezer	Piece	5.00	15	5
+20200	Minced Beef 500g	Freezer	Pack	15.00	15	45
+13000	Cheese	Dairy	Pack	5.00	15	18
+34000	Banana	Fruits	Piece	5.00	15	8
+46000	Cucumber	Vegetable	Piece	2.50	30	15
+47000	Tomato	Vegetable	Piece	2.00	25	30
+36000	Watermelon	Fruits	Piece	12.00	10	5
+37000	Papaya	Fruits	Piece	5.00	15	5
+23400	Pork Sausages	Freezer	Piece	10.00	20	10
+23500	Pork Ham	Freezer	Pack	8.00	15	8
+24000	Lamb Rack 500g	Freezer	Pack	20.00	10	5
+24100	Lamb Shoulder 500g	Freezer	Piece	25.00	10	15
