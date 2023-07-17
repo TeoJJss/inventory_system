@@ -1,3 +1,5 @@
 backup*
 test*
 pseudo.txt
+__pycache__
+venv/
