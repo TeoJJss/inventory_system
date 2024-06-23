@@ -38,3 +38,11 @@ After getting all lines of data into an array, to call an element, call using th
 data_ls[0][1]
 # To get 1st row 2nd column data
 ```
+
+<h2>Credits</h2>
+
+- <a href="https://github.com/TeoJJss">Teo Jun Jia</a>
+- <a href="https://github.com/NoZuMii">Lim Heng Yang</a>
+- <a href="https://github.com/JackNJH">Jack Ng Jan Hwan</a>
+- Louis Ng Yu Hern
+- <a href="https://github.com/nat-c69">Nathaniel Chia Yun Bing</a>
